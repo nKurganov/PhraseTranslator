@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Поле для ввода текста -->
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Введите текст для перевода"
+        android:padding="10dp" />
+
+    <!-- Кнопка для перевода -->
+    <Button
+        android:id="@+id/translateButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Перевести"
+        android:layout_marginTop="16dp" />
+
+    <!-- Поле для отображения результата -->
+    <TextView
+        android:id="@+id/outputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Перевод появится здесь"
+        android:textSize="16sp" />
+</LinearLayout>
