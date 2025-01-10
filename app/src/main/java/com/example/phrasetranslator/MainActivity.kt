@@ -38,7 +38,7 @@ fun PhraseTranslatorApp() {
 @Composable
 fun TranslatorScreen(modifier: Modifier = Modifier) {
     var inputText by remember { mutableStateOf("") }
-    var translatedText by remember { mutableStateOf("Перевод появится здесь") }
+    var translatedText by remember { mutableStateOf("Перевод: ") }
 
     Column(
         modifier = modifier
