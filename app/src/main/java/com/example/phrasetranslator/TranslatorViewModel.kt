@@ -15,7 +15,7 @@ import androidx.compose.runtime.setValue
 
 class TranslatorViewModel : ViewModel() {
     var inputText by mutableStateOf("") // Следит за изменением текста
-    var translatedText by mutableStateOf("Перевод появится здесь") // Следит за изменением результата
+    var translatedText by mutableStateOf("Перевод появится здесь!") // Следит за изменением результата
     var sourceLanguage = "en" // Исходный язык
     var targetLanguage = "ru" // Целевой язык
 
