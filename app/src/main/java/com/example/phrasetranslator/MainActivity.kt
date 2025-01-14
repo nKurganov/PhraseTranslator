@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.phrasetranslator.ui.theme.PhraseTranslatorTheme
 
+
 class MainActivity : ComponentActivity() {
     private val viewModel: TranslatorViewModel by viewModels()
 
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PhraseTranslatorTheme {
-                TranslatorUI(viewModel = viewModel)
+                TranslatorScreen(viewModel = viewModel, context = this)
             }
         }
     }

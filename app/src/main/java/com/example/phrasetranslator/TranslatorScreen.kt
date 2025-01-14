@@ -1,107 +1,70 @@
 package com.example.phrasetranslator
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.phrasetranslator.data.TranslationEntity
+import com.example.phrasetranslator.ui.HistoryScreen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TranslatorUI(
-    viewModel: TranslatorViewModel,
-    modifier: Modifier = Modifier
-) {
-    var expandedSource by remember { mutableStateOf(false) }
-    var expandedTarget by remember { mutableStateOf(false) }
+fun TranslatorScreen(viewModel: TranslatorViewModel, context: Context) {
+    var showHistory by remember { mutableStateOf(false) }
+    var translations by remember { mutableStateOf(emptyList<TranslationEntity>()) }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        // Выбор исходного языка
-        ExposedDropdownMenuBox(
-            expanded = expandedSource,
-            onExpandedChange = { expandedSource = it }
+    if (showHistory) {
+        HistoryScreen(
+            translations = translations,
+            onBack = { showHistory = false }
+        )
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            TextField(
-                readOnly = true,
-                value = viewModel.languages[viewModel.sourceLanguage] ?: "Выбрать язык",
-                onValueChange = {},
-                label = { Text("Исходный язык") },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSource) },
-                modifier = Modifier.menuAnchor()
+            // Выбор исходного языка
+            OutlinedTextField(
+                value = viewModel.inputText,
+                onValueChange = { viewModel.inputText = it },
+                label = { Text("Введите текст для перевода") },
+                modifier = Modifier.fillMaxWidth()
             )
-            ExposedDropdownMenu(
-                expanded = expandedSource,
-                onDismissRequest = { expandedSource = false }
+
+            // Кнопка перевода
+            Button(
+                onClick = {
+                    viewModel.translate(folderId = "b1gun2l2egoi941d9gkj")
+                },
+                modifier = Modifier.fillMaxWidth()
             ) {
-                viewModel.languages.forEach { (code, name) ->
-                    DropdownMenuItem(
-                        text = { Text(text = name) },
-                        onClick = {
-                            viewModel.sourceLanguage = code
-                            expandedSource = false
-                        }
-                    )
-                }
+                Text("Перевести")
+            }
+
+            // Результат перевода
+            Text(
+                text = viewModel.translatedText,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            // Кнопка истории переводов
+            Button(
+                onClick = {
+                    viewModel.getTranslations {
+                        translations = it
+                        showHistory = true
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("История переводов")
             }
         }
-
-        // Выбор целевого языка
-        ExposedDropdownMenuBox(
-            expanded = expandedTarget,
-            onExpandedChange = { expandedTarget = it }
-        ) {
-            TextField(
-                readOnly = true,
-                value = viewModel.languages[viewModel.targetLanguage] ?: "Выбрать язык",
-                onValueChange = {},
-                label = { Text("Целевой язык") },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedTarget) },
-                modifier = Modifier.menuAnchor()
-            )
-            ExposedDropdownMenu(
-                expanded = expandedTarget,
-                onDismissRequest = { expandedTarget = false }
-            ) {
-                viewModel.languages.forEach { (code, name) ->
-                    DropdownMenuItem(
-                        text = { Text(text = name) },
-                        onClick = {
-                            viewModel.targetLanguage = code
-                            expandedTarget = false
-                        }
-                    )
-                }
-            }
-        }
-
-        // Поле для ввода текста
-        OutlinedTextField(
-            value = viewModel.inputText,
-            onValueChange = { viewModel.inputText = it },
-            label = { Text("Введите текст для перевода") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        // Кнопка для перевода
-        Button(
-            onClick = {
-                viewModel.translate(folderId = "b1gun2l2egoi941d9gkj") // Ваш FOLDER_ID
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Перевести")
-        }
-
-        // Поле для отображения результата
-        Text(
-            text = viewModel.translatedText,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(top = 16.dp)
-        )
     }
 }
