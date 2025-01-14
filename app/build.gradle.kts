@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // Добавьте эту строку
+    id("kotlin-kapt")
 }
 
 android {
@@ -36,6 +36,100 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = listOf(
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xsuppress=EXPERIMENTAL_API_USAGE",
+            "-Xsuppress=EXPERIMENTAL_MATERIAL3_API",
+            "-Xsuppress=EXPERIMENTAL_API_USAGE_ERROR",
+            "-Xsuppress=EXPERIMENTAL_MATERIAL_API",
+            "-Xsuppress=EXPERIMENTAL_UNSIGNED_LITERALS",
+            "-Xsuppress=EXPERIMENTAL_OVERRIDE",
+            "-Xsuppress=EXPERIMENTAL_FEATURE_WARNING",
+            "-Xsuppress=EXPERIMENTAL_IS_NOT_ENABLED",
+            "-Xsuppress=EXPERIMENTAL_KOTLIN_MODULE",
+            "-Xsuppress=EXPERIMENTAL_MULTI_PLATFORM",
+            "-Xsuppress=EXPERIMENTAL_API_USAGE_ERROR",
+            "-Xsuppress=EXPERIMENTAL_EXTENSION_PROPERTY",
+            "-Xsuppress=EXPERIMENTAL_BUILDER_INFERENCE",
+            "-Xsuppress=EXPERIMENTAL_FUN_INTERFACE",
+            "-Xsuppress=EXPERIMENTAL_CONTRACT",
+            "-Xsuppress=EXPERIMENTAL_COROUTINES_API",
+            "-Xsuppress=EXPERIMENTAL_RANGE_API",
+            "-Xsuppress=EXPERIMENTAL_IO_API",
+            "-Xsuppress=EXPERIMENTAL_ANNOTATION_CLASS",
+            "-Xsuppress=EXPERIMENTAL_ASSOCIATED_OBJECT",
+            "-Xsuppress=EXPERIMENTAL_REQUIRES_OPT_IN",
+            "-Xsuppress=EXPERIMENTAL_USE_PROPERTY_ACCESSOR",
+            "-Xsuppress=EXPERIMENTAL_TYPE_INFERENCE",
+            "-Xsuppress=EXPERIMENTAL_COLLECTIONS_API",
+            "-Xsuppress=EXPERIMENTAL_DECLARATIONS",
+            "-Xsuppress=EXPERIMENTAL_API_USAGE_ERROR",
+            "-Xsuppress=EXPERIMENTAL_UNSIGNED_TYPES",
+            "-Xsuppress=EXPERIMENTAL_DATA_CLASS",
+            "-Xsuppress=EXPERIMENTAL_OBJECT_LITERAL",
+            "-Xsuppress=EXPERIMENTAL_ARRAY_API",
+            "-Xsuppress=EXPERIMENTAL_TEXT_API",
+            "-Xsuppress=EXPERIMENTAL_WASM_API",
+            "-Xsuppress=EXPERIMENTAL_JS_EXPORT",
+            "-Xsuppress=EXPERIMENTAL_JS_IR",
+            "-Xsuppress=EXPERIMENTAL_JS_MODULE",
+            "-Xsuppress=EXPERIMENTAL_JS_NAME",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL",
+            "-Xsuppress=EXPERIMENTAL_JS_INLINE",
+            "-Xsuppress=EXPERIMENTAL_JS_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_FUN",
+            "-Xsuppress=EXPERIMENTAL_JS_CLASS",
+            "-Xsuppress=EXPERIMENTAL_JS_INTERFACE",
+            "-Xsuppress=EXPERIMENTAL_JS_OBJECT",
+            "-Xsuppress=EXPERIMENTAL_JS_ENUM",
+            "-Xsuppress=EXPERIMENTAL_JS_PROPERTY",
+            "-Xsuppress=EXPERIMENTAL_JS_FUNCTION",
+            "-Xsuppress=EXPERIMENTAL_JS_CONSTRUCTOR",
+            "-Xsuppress=EXPERIMENTAL_JS_GETTER",
+            "-Xsuppress=EXPERIMENTAL_JS_SETTER",
+            "-Xsuppress=EXPERIMENTAL_JS_OVERRIDE",
+            "-Xsuppress=EXPERIMENTAL_JS_DEFAULT",
+            "-Xsuppress=EXPERIMENTAL_JS_OPTIONAL",
+            "-Xsuppress=EXPERIMENTAL_JS_VARARG",
+            "-Xsuppress=EXPERIMENTAL_JS_NULLABLE",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_CLASS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_INTERFACE",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_OBJECT",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_ENUM",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_PROPERTY",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_FUNCTION",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_CONSTRUCTOR",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_GETTER",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_SETTER",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_OVERRIDE",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_DEFAULT",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_OPTIONAL",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_VARARG",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_NULLABLE",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_INLINE",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_MODULE",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_NAME",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_FUN",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_CLASS_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_INTERFACE_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_OBJECT_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_ENUM_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_PROPERTY_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_FUNCTION_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_CONSTRUCTOR_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_GETTER_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_SETTER_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_OVERRIDE_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_DEFAULT_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_OPTIONAL_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_VARARG_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_NULLABLE_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_INLINE_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_MODULE_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_NAME_ANNOTATIONS",
+            "-Xsuppress=EXPERIMENTAL_JS_EXTERNAL_FUN_ANNOTATIONS"
+        )
     }
     buildFeatures {
         compose = true
@@ -76,5 +170,6 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1") // Для корутин
-
 }
+
+// Retrofit and Gson

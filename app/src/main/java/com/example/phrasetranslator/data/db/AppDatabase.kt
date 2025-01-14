@@ -1,4 +1,4 @@
-package com.example.phrasetranslator.data.db // Укажите правильный пакет
+package com.example.phrasetranslator.data.db
 
 import android.content.Context
 import androidx.room.Database
@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.phrasetranslator.data.TranslationEntity
 import com.example.phrasetranslator.data.dao.TranslationDao
 
-@Database(entities = [TranslationEntity::class], version = 1)
+@Database(entities = [TranslationEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun translationDao(): TranslationDao
 
@@ -21,7 +21,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

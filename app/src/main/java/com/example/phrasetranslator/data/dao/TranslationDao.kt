@@ -1,4 +1,4 @@
-package com.example.phrasetranslator.data.dao // Укажите правильный пакет
+package com.example.phrasetranslator.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,6 +10,6 @@ interface TranslationDao {
     @Insert
     suspend fun insertTranslation(translation: TranslationEntity)
 
-    @Query("SELECT * FROM translations ORDER BY timestamp DESC")
+    @Query("SELECT * FROM translations")
     suspend fun getAllTranslations(): List<TranslationEntity>
 }

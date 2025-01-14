@@ -18,8 +18,8 @@ import kotlinx.coroutines.withContext
 class TranslatorViewModel(application: Application) : AndroidViewModel(application) {
     var inputText by mutableStateOf("") // Следит за изменением текста
     var translatedText by mutableStateOf("Перевод появится здесь!") // Следит за изменением результата
-    var sourceLanguage = "en" // Исходный язык
-    var targetLanguage = "ru" // Целевой язык
+    var sourceLanguage by mutableStateOf("en") // Исходный язык
+    var targetLanguage by mutableStateOf("ru") // Целевой язык
     // Список доступных языков
     val languages = mapOf(
         "en" to "Английский",
@@ -76,5 +76,11 @@ class TranslatorViewModel(application: Application) : AndroidViewModel(applicati
                 onTranslationsLoaded(translations)
             }
         }
+    }
+    fun updateSourceLanguage(language: String) {
+        sourceLanguage = language
+    }
+    fun updateTargetLanguage(language: String) {
+        targetLanguage = language
     }
 }

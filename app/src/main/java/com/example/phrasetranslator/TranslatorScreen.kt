@@ -11,10 +11,13 @@ import androidx.compose.ui.unit.dp
 import com.example.phrasetranslator.data.TranslationEntity
 import com.example.phrasetranslator.ui.HistoryScreen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TranslatorScreen(viewModel: TranslatorViewModel, context: Context) {
     var showHistory by remember { mutableStateOf(false) }
     var translations by remember { mutableStateOf(emptyList<TranslationEntity>()) }
+    var expandedSource by remember { mutableStateOf(false) }
+    var expandedTarget by remember { mutableStateOf(false) }
 
     if (showHistory) {
         HistoryScreen(
@@ -29,6 +32,61 @@ fun TranslatorScreen(viewModel: TranslatorViewModel, context: Context) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // Выбор исходного языка
+            ExposedDropdownMenuBox(
+                expanded = expandedSource,
+                onExpandedChange = { expandedSource = !expandedSource }
+            ) {
+                OutlinedTextField(
+                    value = viewModel.languages[viewModel.sourceLanguage] ?: "Английский",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("Исходный язык") },
+                    modifier = Modifier.menuAnchor()
+                )
+                ExposedDropdownMenu(
+                    expanded = expandedSource,
+                    onDismissRequest = { expandedSource = false }
+                ) {
+                    viewModel.languages.forEach { (code, name) ->
+                        DropdownMenuItem(
+                            text = { Text(name) },
+                            onClick = {
+                                viewModel.updateSourceLanguage(code)
+                                expandedSource = false
+                            }
+                        )
+                    }
+                }
+            }
+
+            // Выбор целевого языка
+            ExposedDropdownMenuBox(
+                expanded = expandedTarget,
+                onExpandedChange = { expandedTarget = !expandedTarget }
+            ) {
+                OutlinedTextField(
+                    value = viewModel.languages[viewModel.targetLanguage] ?: "Русский",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("Целевой язык") },
+                    modifier = Modifier.menuAnchor()
+                )
+                ExposedDropdownMenu(
+                    expanded = expandedTarget,
+                    onDismissRequest = { expandedTarget = false }
+                ) {
+                    viewModel.languages.forEach { (code, name) ->
+                        DropdownMenuItem(
+                            text = { Text(name) },
+                            onClick = {
+                                viewModel.updateTargetLanguage(code)
+                                expandedTarget = false
+                            }
+                        )
+                    }
+                }
+            }
+
             OutlinedTextField(
                 value = viewModel.inputText,
                 onValueChange = { viewModel.inputText = it },
@@ -45,7 +103,6 @@ fun TranslatorScreen(viewModel: TranslatorViewModel, context: Context) {
             ) {
                 Text("Перевести")
             }
-
             // Результат перевода
             Text(
                 text = viewModel.translatedText,
